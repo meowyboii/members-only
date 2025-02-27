@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link href="/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1 class="text-center">Sign Up</h1>
+    <main>
+      <div class="flex justify-center">
+        <form
+          action="/sign-up"
+          method="post"
+          class="flex flex-col space-y-3 w-2xl py-2"
+        >
+          <label for="first-name">First Name</label>
+          <input
+            id="first-name"
+            name="firstName"
+            placeholder="First Name"
+            type="text"
+          />
+          <label for="first-name">Last Name</label>
+          <input
+            id="last-name"
+            name="lastName"
+            placeholder="Last Name"
+            type="text"
+          />
+          <label for="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            placeholder="Username"
+            type="text"
+          />
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            placeholder="Password"
+            type="password"
+          />
+          <button
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <% if(errors) { errors.forEach(error => {%>
+    <section class="md:w-2xl mx-auto">
+      <p class="text-red-500"><%= error.msg %></p>
+    </section>
+    <%})} %>
+  </body>
+</html>
