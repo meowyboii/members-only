@@ -1,10 +1,19 @@
 const { User } = require("../db/authQueries");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+require("dotenv").config();
 
 const getSignUp = async (req, res, next) => {
   try {
     res.render("sign-up", { errors: null, formData: {} });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const getJoinClub = async (req, res, next) => {
+  try {
+    res.render("join-the-club", { user: req.user });
   } catch (error) {
     return next(error);
   }
@@ -51,18 +60,50 @@ const createUser = async (req, res, next) => {
   try {
     const { firstName, lastName, username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+    const isAdmin = req.body.isAdmin === "true";
     const user = await User.createUser(
       firstName,
       lastName,
       username,
-      hashedPassword
+      hashedPassword,
+      isAdmin
     );
     if (user) {
-      res.redirect("/");
+      // Automatically log in the user after sign-up
+      req.login(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect("/join-the-club");
+      });
     }
   } catch (error) {
     return next(error);
   }
 };
 
-module.exports = { getSignUp, createUser, validateUser };
+const createMember = async (req, res, next) => {
+  try {
+    const passcode = req.body.passcode;
+    if (passcode !== process.env.SECRET_PASSCODE) {
+      return res.render("join-the-club", {
+        errorMessage: "Passcode is wrong!",
+      });
+    }
+    const userId = req.params.id;
+    const member = await User.createMember(userId);
+    if (member) {
+      res.render("/");
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports = {
+  getSignUp,
+  getJoinClub,
+  createUser,
+  createMember,
+  validateUser,
+};

@@ -7,49 +7,52 @@
     <link href="/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <h1 class="text-center">Sign Up</h1>
-    <main>
-      <div class="flex justify-center">
-        <form
-          action="/sign-up"
-          method="post"
-          class="flex flex-col space-y-3 w-2xl py-2"
+    <main class="flex flex-col items-center">
+      <h1 class="text-center">Sign Up</h1>
+      <form
+        action="/sign-up"
+        method="post"
+        class="flex flex-col space-y-3 w-2xl py-2"
+      >
+        <label for="first-name">First Name</label>
+        <input
+          id="first-name"
+          name="firstName"
+          placeholder="First Name"
+          type="text"
+        />
+        <label for="first-name">Last Name</label>
+        <input
+          id="last-name"
+          name="lastName"
+          placeholder="Last Name"
+          type="text"
+        />
+        <label for="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          placeholder="Username"
+          type="text"
+        />
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          placeholder="Password"
+          type="password"
+        />
+        <div class="align-center">
+          <label for="isAdmin">Are you an admin?</label>
+          <input type="checkbox" name="isAdmin" id="is-admin" value="true" />
+        </div>
+
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
         >
-          <label for="first-name">First Name</label>
-          <input
-            id="first-name"
-            name="firstName"
-            placeholder="First Name"
-            type="text"
-          />
-          <label for="first-name">Last Name</label>
-          <input
-            id="last-name"
-            name="lastName"
-            placeholder="Last Name"
-            type="text"
-          />
-          <label for="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            placeholder="Username"
-            type="text"
-          />
-          <label for="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            placeholder="Password"
-            type="password"
-          />
-          <button
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
-          >
-            Sign Up
-          </button>
-        </form>
-      </div>
+          Sign Up
+        </button>
+      </form>
     </main>
 
     <% if(errors) { errors.forEach(error => {%>
