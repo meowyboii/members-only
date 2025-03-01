@@ -4,17 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join the Club</title>
+    <link href="/styles.css" rel="stylesheet" />
   </head>
   <body>
     <main>
       <h1>Enter the Correct Password to Become a Member of the Cluuuub!</h1>
       <form action="/join-the-club/<%= user.id %>" method="post">
         <input type="text" name="passcode" id="passcode" />
-        <button
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
-        >
-          Join the Club
-        </button>
+        <button class="btn-primary">Join the Club</button>
       </form>
     </main>
   </body>
