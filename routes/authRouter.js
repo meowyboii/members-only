@@ -13,6 +13,6 @@ const {
 router.get("/sign-up", getSignUp);
 router.post("/sign-up", validateUser, createUser);
 router.get("/join-the-club", getJoinClub);
-router.post("/join-the-club/:id", validatePasscode, createMember);
+router.post("/join-the-club", validatePasscode, createMember);
 
 module.exports = router;
