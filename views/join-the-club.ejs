@@ -25,6 +25,11 @@
           />
           <p>Clue: Look for my github username.</p>
           <button class="btn-primary mt-5">Join the Club</button>
+          <% if(errors) { errors.forEach(error => {%>
+          <section>
+            <p class="text-red-500"><%= error.msg %></p>
+          </section>
+          <%})} %>
         </form>
       </div>
     </main>

@@ -13,7 +13,7 @@ const getSignUp = async (req, res, next) => {
 
 const getJoinClub = async (req, res, next) => {
   try {
-    res.render("join-the-club", { user: req.user });
+    res.render("join-the-club", { user: req.user, errors: null });
   } catch (error) {
     return next(error);
   }
@@ -82,12 +82,22 @@ const createUser = async (req, res, next) => {
   }
 };
 
+const validatePasscode = [body("passcode").trim().notEmpty()];
+
 const createMember = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render("join-the-club", {
+      user: req.user,
+      errors: errors.array(),
+    });
+  }
   try {
     const passcode = req.body.passcode;
     if (passcode !== process.env.SECRET_PASSCODE) {
       return res.render("join-the-club", {
-        errorMessage: "Passcode is wrong!",
+        user: req.user,
+        errors: [{ msg: "Passcode is wrong!" }],
       });
     }
     const userId = req.params.id;
@@ -106,4 +116,5 @@ module.exports = {
   createUser,
   createMember,
   validateUser,
+  validatePasscode,
 };
