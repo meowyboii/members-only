@@ -59,6 +59,14 @@ const createUser = async (req, res, next) => {
   }
   try {
     const { firstName, lastName, username, password } = req.body;
+    const existingUser = await User.findByUsername(username);
+    if (existingUser) {
+      return res.render("sign-up", {
+        errors: [{ msg: "Username already taken" }],
+        formData: req.body,
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const isAdmin = req.body.isAdmin === "true";
     const user = await User.createUser(

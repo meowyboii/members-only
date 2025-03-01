@@ -27,6 +27,14 @@ const User = {
     ]);
     return rows[0];
   },
+
+  findByUsername: async (username) => {
+    const { rows } = await pool.query(
+      `SELECT * FROM users WHERE username = $1`,
+      [username]
+    );
+    return rows.length > 0 ? rows[0] : null;
+  },
 };
 
 module.exports = { User };
