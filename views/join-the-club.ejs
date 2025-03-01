@@ -7,12 +7,26 @@
     <link href="/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <main>
-      <h1>Enter the Correct Password to Become a Member of the Cluuuub!</h1>
-      <form action="/join-the-club/<%= user.id %>" method="post">
-        <input type="text" name="passcode" id="passcode" />
-        <button class="btn-primary">Join the Club</button>
-      </form>
+    <main
+      class="flex justify-center items-center text-center min-h-screen bg-gradient-to-r from-teal-900 to-emerald-500"
+    >
+      <div class="flex flex-col justify-center bg-zinc-700 w-xl p-10">
+        <h1>Enter the Correct Password to Become a Member of the Cluuuub!</h1>
+        <form
+          action="/join-the-club/<%= user.id %>"
+          method="post"
+          class="flex flex-col space-y-3 p-5 w-full"
+        >
+          <input
+            type="text"
+            name="passcode"
+            id="passcode"
+            class="h-15 text-4xl font-bold text-center"
+          />
+          <p>Clue: Look for my github username.</p>
+          <button class="btn-primary mt-5">Join the Club</button>
+        </form>
+      </div>
     </main>
   </body>
 </html>
