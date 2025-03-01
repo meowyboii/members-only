@@ -10,5 +10,5 @@ input {
   @apply bg-zinc-800 autofill:bg-zinc-800 autofill:text-slate-50 p-1.5;
 }
 .btn-primary {
-  @apply bg-teal-700 font-bold py-2 px-4 rounded transition-colors duration-300 hover:bg-teal-800 cursor-pointer;
+  @apply bg-teal-700 font-bold py-2 px-4 mt-2 rounded transition-colors duration-300 hover:bg-teal-800 cursor-pointer;
 }

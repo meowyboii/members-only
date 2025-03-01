@@ -1,11 +1,22 @@
 const { User } = require("../db/authQueries");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const passport = require("../utils/passport");
 require("dotenv").config();
 
 const getSignUp = async (req, res, next) => {
   try {
     res.render("sign-up", { errors: null, formData: {} });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const getLogin = async (req, res, next) => {
+  try {
+    const error = req.session.messages;
+    req.session.messages = [];
+    res.render("log-in", { error: error });
   } catch (error) {
     return next(error);
   }
@@ -116,11 +127,21 @@ const createMember = async (req, res, next) => {
   }
 };
 
+const login = (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/log-in",
+    failureMessage: true,
+  })(req, res, next); // Call the passport middleware
+};
+
 module.exports = {
   getSignUp,
+  getLogin,
   getJoinClub,
   createUser,
   createMember,
+  login,
   validateUser,
   validatePasscode,
 };
