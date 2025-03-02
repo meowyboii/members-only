@@ -1,9 +1,9 @@
 const { Message } = require("../db/messageQueries");
 
-const createMessage = async (req, res, next) => {
+const createMessage = (req, res, next) => {
   try {
     const { title, message } = req.body;
-    const newMessage = await Message.add(title, message);
+    const newMessage = Message.add(title, message);
     if (newMessage) {
       res.status(200);
     }
