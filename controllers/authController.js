@@ -123,6 +123,14 @@ const login = (req, res, next) => {
   })(req, res, next); // Call the passport middleware
 };
 
+const authenticate = (req, res, next) => {
+  const user = req.user;
+  if (!user) {
+    res.redirect("/log-in");
+  }
+  next();
+};
+
 module.exports = {
   getSignUp,
   getLogin,
@@ -130,6 +138,7 @@ module.exports = {
   createUser,
   createMember,
   login,
+  authenticate,
   validateUser,
   validatePasscode,
 };
