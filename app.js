@@ -4,6 +4,9 @@ const session = require("express-session");
 const passport = require("./utils/passport");
 const errorHandler = require("./utils/errorHandler");
 const authRouter = require("./routes/authRouter");
+const indexRouter = require("./routes/indexRouter");
+const messageRouter = require("./routes/messageRouter");
+
 require("dotenv").config();
 
 const app = express();
@@ -32,11 +35,8 @@ app.use((req, res, next) => {
 });
 
 app.use(authRouter);
-app.get("/cause-error", (req, res, next) => {
-  const error = new Error("This is a custom error!");
-  error.status = 400; // Set HTTP status code
-  next(error); // Pass the error to the handler
-});
+app.use(indexRouter);
+app.use(messageRouter);
 
 app.use(errorHandler);
 

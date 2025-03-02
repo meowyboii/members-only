@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Home</title>
+  </head>
+  <body class="flex justify-center bg-zinc-800">
+    <main class="w-1/2 px-10 py-5">
+      <section>
+        <form
+          action="/add-message"
+          method="post"
+          class="flex flex-col mt-5 p-5 bg-zinc-750"
+        >
+          <h2>Create a Post</h2>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="!bg-zinc-700 mt-5 p-2"
+            placeholder="Title"
+          />
+          <textarea
+            name="message"
+            id="new-message"
+            rows="5"
+            placeholder="Say something..."
+            class="bg-zinc-700 resize-none p-2 mt-3"
+          ></textarea>
+          <div class="flex justify-end">
+            <button class="btn-primary w-25">Post</button>
+          </div>
+        </form>
+      </section>
+      <section class="w-full bg-zinc-750 p-10 mt-5"></section>
+    </main>
+  </body>
+</html>

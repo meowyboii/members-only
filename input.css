@@ -1,14 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --color-zinc-750: oklch(33% 0.0119 285.81);
+}
+
 body {
   @apply text-slate-50;
 }
 h1 {
   @apply font-bold text-2xl;
 }
+h2 {
+  @apply font-bold text-xl;
+}
 input {
   @apply bg-zinc-800 autofill:bg-zinc-800 autofill:text-slate-50 p-1.5;
 }
 .btn-primary {
-  @apply bg-teal-700 font-bold py-2 px-4 mt-2 rounded transition-colors duration-300 hover:bg-teal-800 cursor-pointer;
+  @apply bg-teal-700 font-bold py-2 px-4 mt-3 rounded transition-colors duration-300 hover:bg-teal-800 cursor-pointer;
 }
