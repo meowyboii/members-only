@@ -5,29 +5,17 @@ const passport = require("../utils/passport");
 require("dotenv").config();
 
 const getSignUp = async (req, res, next) => {
-  try {
-    res.status(200).render("sign-up", { errors: null, formData: {} });
-  } catch (error) {
-    return next(error);
-  }
+  res.status(200).render("sign-up", { errors: null, formData: {} });
 };
 
 const getLogin = async (req, res, next) => {
-  try {
-    const error = req.session.messages;
-    req.session.messages = [];
-    res.status(200).render("log-in", { error: error });
-  } catch (error) {
-    return next(error);
-  }
+  const error = req.session.messages;
+  req.session.messages = [];
+  res.status(200).render("log-in", { error: error });
 };
 
 const getJoinClub = async (req, res, next) => {
-  try {
-    res.status(200).render("join-the-club", { errors: null });
-  } catch (error) {
-    return next(error);
-  }
+  res.status(200).render("join-the-club", { errors: null });
 };
 
 const validateUser = [
