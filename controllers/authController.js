@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const getSignUp = async (req, res, next) => {
   try {
-    res.render("sign-up", { errors: null, formData: {} });
+    res.status(200).render("sign-up", { errors: null, formData: {} });
   } catch (error) {
     return next(error);
   }
@@ -16,7 +16,7 @@ const getLogin = async (req, res, next) => {
   try {
     const error = req.session.messages;
     req.session.messages = [];
-    res.render("log-in", { error: error });
+    res.status(200).render("log-in", { error: error });
   } catch (error) {
     return next(error);
   }
@@ -24,7 +24,7 @@ const getLogin = async (req, res, next) => {
 
 const getJoinClub = async (req, res, next) => {
   try {
-    res.render("join-the-club", { errors: null });
+    res.status(200).render("join-the-club", { errors: null });
   } catch (error) {
     return next(error);
   }
@@ -63,7 +63,7 @@ const validateUser = [
 const createUser = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.render("sign-up", {
+    return res.status(400).render("sign-up", {
       errors: errors.array(),
       formData: req.body,
     });
@@ -72,7 +72,7 @@ const createUser = async (req, res, next) => {
     const { firstName, lastName, username, password } = req.body;
     const existingUser = await User.findByUsername(username);
     if (existingUser) {
-      return res.render("sign-up", {
+      return res.status(400).render("sign-up", {
         errors: [{ msg: "Username already taken" }],
         formData: req.body,
       });
@@ -106,21 +106,21 @@ const validatePasscode = [body("passcode").trim().notEmpty()];
 const createMember = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.render("join-the-club", {
+    return res.status(400).render("join-the-club", {
       errors: errors.array(),
     });
   }
   try {
     const passcode = req.body.passcode;
     if (passcode !== process.env.SECRET_PASSCODE) {
-      return res.render("join-the-club", {
+      return res.status(400).render("join-the-club", {
         errors: [{ msg: "Passcode is wrong!" }],
       });
     }
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const member = await User.createMember(userId);
     if (member) {
-      res.render("/");
+      res.redirect("/");
     }
   } catch (error) {
     return next(error);
