@@ -18,7 +18,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "npx @tailwindcss/cli -i ./input.css -o ./public/styles.css --watch"
+    "build:css": "npx @tailwindcss/cli -i ./input.css -o ./public/styles.css --watch",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
