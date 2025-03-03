@@ -10,8 +10,11 @@ const Message = {
   },
   getAll: async () => {
     const { rows } = await pool.query(
-      `SELECT messages.id, messages.title, messages.message, users.first_name, users.last_name 
-        FROM messages JOIN users ON messages.user_id = users.id;`
+      `SELECT messages.id, messages.title, messages.message, 
+      TO_CHAR(messages.created_at, 'DD/MM/YYYY') AS date_created, TO_CHAR(messages.created_at, 'HH:MI AM') AS time_created, 
+      users.first_name, users.last_name 
+      FROM messages JOIN users ON messages.user_id = users.id
+      ORDER BY messages.created_at DESC;`
     );
     return rows;
   },

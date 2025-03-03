@@ -42,6 +42,9 @@
           <p class="mb-2"><%= message.message %></p>
           <% if(currentUser?.member) {%>
           <p class="italic"><%=message.first_name + " " +message.last_name%></p>
+          <p class="text-zinc-400 text-sm">
+            <%=message.date_created + " " +message.time_created%>
+          </p>
           <% } else { %>
           <p class="italic">Anonymous</p>
           <% } %> <% if(currentUser?.admin) {%>
