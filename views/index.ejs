@@ -6,54 +6,57 @@
     <link rel="stylesheet" href="styles.css" />
     <title>Home</title>
   </head>
-  <body class="flex justify-center bg-zinc-800">
-    <main class="w-1/2 px-10 py-5">
-      <section>
-        <form
-          action="/add-message"
-          method="post"
-          class="flex flex-col mt-5 p-10 bg-zinc-750 rounded-xl"
-        >
-          <h2>Create a Post</h2>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            class="!bg-zinc-700 mt-5 p-2"
-            placeholder="Title"
-          />
-          <textarea
-            name="message"
-            id="new-message"
-            rows="5"
-            placeholder="Say something..."
-            class="bg-zinc-700 resize-none p-2 mt-3"
-          ></textarea>
-          <div class="flex justify-end">
-            <button class="btn-primary w-25">Post</button>
-          </div>
-        </form>
-      </section>
-      <% if(messages) { messages.forEach(message => {%>
-      <section class="w-full bg-zinc-750 p-10 my-5 rounded-xl">
-        <h3 class="font-bold mb-2"><%= message.title %></h3>
-        <p class="mb-2"><%= message.message %></p>
-        <% if(currentUser.member) {%>
-        <p class="italic"><%=message.first_name + " " +message.last_name%></p>
-        <% } else { %>
-        <p class="italic">Anonymous</p>
-        <% } %> <% if(currentUser.admin) {%>
-        <form action="/delete-message" method="post" class="flex justify-end">
-          <input type="hidden" value="<%= message.id %>" name="messageId" />
-          <button
-            class="bg-red-700 w-25 font-bold py-2 px-4 mt-3 rounded transition-colors duration-300 hover:bg-red-800 cursor-pointer"
+  <%- include('partials/header') %>
+  <body class="bg-zinc-800">
+    <main class="flex justify-center">
+      <div class="w-1/2 px-10 py-5">
+        <section>
+          <form
+            action="/add-message"
+            method="post"
+            class="flex flex-col mt-5 p-10 bg-zinc-750 rounded-xl"
           >
-            Delete
-          </button>
-        </form>
-        <% } %>
-      </section>
-      <%})} %>
+            <h2>Create a Post</h2>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="!bg-zinc-700 mt-5 p-2"
+              placeholder="Title"
+            />
+            <textarea
+              name="message"
+              id="new-message"
+              rows="5"
+              placeholder="Say something..."
+              class="bg-zinc-700 resize-none p-2 mt-3"
+            ></textarea>
+            <div class="flex justify-end">
+              <button class="btn-primary w-25">Post</button>
+            </div>
+          </form>
+        </section>
+        <% if(messages && messages.length > 0) { messages.forEach(message => {%>
+        <section class="w-full bg-zinc-750 p-10 my-5 rounded-xl">
+          <h3 class="font-bold mb-2"><%= message.title %></h3>
+          <p class="mb-2"><%= message.message %></p>
+          <% if(currentUser?.member) {%>
+          <p class="italic"><%=message.first_name + " " +message.last_name%></p>
+          <% } else { %>
+          <p class="italic">Anonymous</p>
+          <% } %> <% if(currentUser?.admin) {%>
+          <form action="/delete-message" method="post" class="flex justify-end">
+            <input type="hidden" value="<%= message.id %>" name="messageId" />
+            <button
+              class="bg-red-700 w-25 font-bold py-2 px-4 mt-3 rounded transition-colors duration-300 hover:bg-red-800 cursor-pointer"
+            >
+              Delete
+            </button>
+          </form>
+          <% } %>
+        </section>
+        <%})} %>
+      </div>
     </main>
   </body>
 </html>

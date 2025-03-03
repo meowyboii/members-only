@@ -113,7 +113,7 @@ const createMember = async (req, res, next) => {
         errors: [{ msg: "Passcode is wrong!" }],
       });
     }
-    const userId = req.user?.id;
+    const userId = req.user.id;
     const member = await User.createMember(userId);
     if (member) {
       res.redirect("/");
@@ -131,10 +131,19 @@ const login = (req, res, next) => {
   })(req, res, next); // Call the passport middleware
 };
 
+const logout = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/log-in");
+  });
+};
+
 const authenticate = (req, res, next) => {
   const user = req.user;
   if (!user) {
-    res.redirect("/log-in");
+    return res.redirect("/log-in");
   }
   next();
 };
@@ -146,6 +155,7 @@ module.exports = {
   createUser,
   createMember,
   login,
+  logout,
   authenticate,
   validateUser,
   validatePasscode,
