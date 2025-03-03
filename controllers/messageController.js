@@ -6,7 +6,7 @@ const createMessage = async (req, res, next) => {
     const userId = req.user.id;
     const newMessage = await Message.add(title, message, userId);
     if (newMessage) {
-      res.status(200).redirect("/");
+      res.redirect("/");
     }
   } catch (error) {
     return next(error);
