@@ -1,7 +1,7 @@
 const { Client } = require("pg");
 require("dotenv").config();
 
-const CONNECTION_STRING = process.env.CONNECTION_STRING;
+const CONNECTION_STRING = process.env.DATABASE_URL;
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS users (
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS messages (
 `;
 
 const main = async () => {
-  console.log("Seeding...");
+  console.log("Initializing...");
   const client = new Client({
     connectionString: CONNECTION_STRING,
   });
