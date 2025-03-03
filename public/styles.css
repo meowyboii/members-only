@@ -15,7 +15,9 @@
     --color-teal-900: oklch(0.386 0.063 188.416);
     --color-slate-50: oklch(0.984 0.003 247.858);
     --color-slate-300: oklch(0.869 0.022 252.894);
+    --color-slate-600: oklch(0.446 0.043 257.281);
     --color-slate-800: oklch(0.279 0.041 260.031);
+    --color-gray-600: oklch(0.446 0.03 256.802);
     --color-zinc-600: oklch(0.442 0.017 285.786);
     --color-zinc-700: oklch(0.37 0.013 285.805);
     --color-zinc-800: oklch(0.274 0.006 286.033);
@@ -220,6 +222,9 @@
   .mx-auto {
     margin-inline: auto;
   }
+  .my-5 {
+    margin-block: calc(var(--spacing) * 5);
+  }
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
@@ -231,6 +236,9 @@
   }
   .mt-5 {
     margin-top: calc(var(--spacing) * 5);
+  }
+  .mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
   }
   .mb-5 {
     margin-bottom: calc(var(--spacing) * 5);
@@ -434,11 +442,17 @@
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
   }
+  .text-gray-600 {
+    color: var(--color-gray-600);
+  }
   .text-red-500 {
     color: var(--color-red-500);
   }
   .text-red-600 {
     color: var(--color-red-600);
+  }
+  .text-slate-600 {
+    color: var(--color-slate-600);
   }
   .text-teal-500 {
     color: var(--color-teal-500);

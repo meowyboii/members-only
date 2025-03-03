@@ -1,6 +1,8 @@
+const { Message } = require("../db/messageQueries");
 const getIndex = async (req, res, next) => {
   try {
-    res.render("index");
+    const messages = await Message.getAll();
+    res.render("index", { messages: messages });
   } catch (error) {
     return next(error);
   }

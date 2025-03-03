@@ -34,7 +34,12 @@
           </div>
         </form>
       </section>
-      <section class="w-full bg-zinc-750 p-10 mt-5"></section>
+      <% if(messages) { messages.forEach(message => {%>
+      <section class="w-full bg-zinc-750 p-10 my-5">
+        <h3 class="font-bold mb-2"><%= message.title %></h3>
+        <p><%= message.message %></p>
+      </section>
+      <%})} %>
     </main>
   </body>
 </html>
