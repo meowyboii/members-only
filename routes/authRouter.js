@@ -10,8 +10,8 @@ const {
   validatePasscode,
   login,
   getLogin,
+  authenticate,
 } = require("../controllers/authController");
-const { authenticate } = require("passport");
 
 router.get("/sign-up", getSignUp);
 router.post("/sign-up", validateUser, createUser);
