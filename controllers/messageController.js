@@ -1,6 +1,14 @@
 const { Message } = require("../db/messageQueries");
+const { body, validationResult } = require("express-validator");
 
 const createMessage = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const messages = await Message.getAll();
+    return res
+      .status(400)
+      .render("index", { messages: messages, errors: errors.array() });
+  }
   try {
     const { title, message } = req.body;
     const userId = req.user.id;
@@ -12,6 +20,12 @@ const createMessage = async (req, res, next) => {
     return next(error);
   }
 };
+
+const validateMessage = [
+  body("title").trim().notEmpty().withMessage("Title is required"),
+
+  body("message").trim().notEmpty().withMessage("Message is required"),
+];
 
 const deleteMessage = async (req, res, next) => {
   try {
@@ -29,4 +43,4 @@ const deleteMessage = async (req, res, next) => {
   }
 };
 
-module.exports = { createMessage, deleteMessage };
+module.exports = { createMessage, deleteMessage, validateMessage };

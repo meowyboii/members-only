@@ -34,6 +34,11 @@
             <div class="flex justify-end">
               <button class="btn-primary w-25">Post</button>
             </div>
+            <% if(errors) { errors.forEach(error => {%>
+            <section class="md:w-2xl mx-auto">
+              <p class="text-red-500"><%= error.msg %></p>
+            </section>
+            <%})} %>
           </form>
         </section>
         <% if(messages && messages.length > 0) { messages.forEach(message => {%>
