@@ -28,6 +28,13 @@
           />
 
           <button class="btn-primary">Sign In</button>
+          <div class="text-zinc-400">
+            Don't have an account?
+            <a href="/sign-up" class="text-teal-500 hover:underline"
+              >Register</a
+            >
+          </div>
+
           <% if(error && error.length > 0){%>
           <section class="md:w-2xl">
             <p class="text-red-500"><%= error[0] %></p>
