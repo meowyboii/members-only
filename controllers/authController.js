@@ -75,13 +75,21 @@ const createUser = async (req, res, next) => {
       hashedPassword,
       isAdmin
     );
+
     if (user) {
+      // Automatically make an admin a member
+      if (isAdmin) {
+        const member = await User.createMember(user.id);
+        if (!member) {
+          throw Error("Failed in making the admin a member");
+        }
+      }
       // Automatically log in the user after sign-up
       req.login(user, (err) => {
         if (err) {
           return next(err);
         }
-        return res.redirect("/join-the-club");
+        return res.redirect("/");
       });
     }
   } catch (error) {
