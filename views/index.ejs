@@ -12,7 +12,7 @@
         <form
           action="/add-message"
           method="post"
-          class="flex flex-col mt-5 p-5 bg-zinc-750"
+          class="flex flex-col mt-5 p-10 bg-zinc-750 rounded-xl"
         >
           <h2>Create a Post</h2>
           <input
@@ -35,15 +35,22 @@
         </form>
       </section>
       <% if(messages) { messages.forEach(message => {%>
-      <section class="w-full bg-zinc-750 p-10 my-5">
+      <section class="w-full bg-zinc-750 p-10 my-5 rounded-xl">
         <h3 class="font-bold mb-2"><%= message.title %></h3>
         <p class="mb-2"><%= message.message %></p>
         <% if(currentUser.member) {%>
-        <p class="italic">
-          <%=message.first_name + " " +message.last_name%> <%= %>
-        </p>
+        <p class="italic"><%=message.first_name + " " +message.last_name%></p>
         <% } else { %>
         <p class="italic">Anonymous</p>
+        <% } %> <% if(currentUser.admin) {%>
+        <form action="/delete-message" method="post" class="flex justify-end">
+          <input type="hidden" value="<%= message.id %>" name="messageId" />
+          <button
+            class="bg-red-700 w-25 font-bold py-2 px-4 mt-3 rounded transition-colors duration-300 hover:bg-red-800 cursor-pointer"
+          >
+            Delete
+          </button>
+        </form>
         <% } %>
       </section>
       <%})} %>

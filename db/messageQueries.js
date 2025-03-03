@@ -13,7 +13,13 @@ const Message = {
       `SELECT messages.id, messages.title, messages.message, users.first_name, users.last_name 
         FROM messages JOIN users ON messages.user_id = users.id;`
     );
-    console.log(rows);
+    return rows;
+  },
+  delete: async (messageId) => {
+    const { rows } = await pool.query(
+      `DELETE FROM messages WHERE id = $1 RETURNING *`,
+      [messageId]
+    );
     return rows;
   },
 };

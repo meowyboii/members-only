@@ -6,7 +6,6 @@ const createMessage = async (req, res, next) => {
     const userId = req.user.id;
     const newMessage = await Message.add(title, message, userId);
     if (newMessage) {
-      console.log(newMessage);
       res.status(200).redirect("/");
     }
   } catch (error) {
@@ -14,4 +13,20 @@ const createMessage = async (req, res, next) => {
   }
 };
 
-module.exports = { createMessage };
+const deleteMessage = async (req, res, next) => {
+  try {
+    const admin = req.user.admin;
+    if (!admin) {
+      throw new Error("Only an admin can delete messages");
+    }
+    const { messageId } = req.body;
+    const deletedMessage = await Message.delete(messageId);
+    if (deletedMessage) {
+      res.redirect("/");
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports = { createMessage, deleteMessage };
