@@ -9,12 +9,24 @@ const getSignUp = async (req, res, next) => {
 };
 
 const getLogin = async (req, res, next) => {
-  const error = req.session.messages;
+  const user = req.user;
+  if (user) {
+    const error = new Error("You are already logged in!");
+    error.status = 400;
+    return next(error);
+  }
+  const errors = req.session.messages;
   req.session.messages = [];
-  res.status(200).render("log-in", { error: error });
+  res.status(200).render("log-in", { errors: errors });
 };
 
 const getJoinClub = async (req, res, next) => {
+  const member = req.user.member;
+  if (member) {
+    const error = new Error("You are already a member of the club!");
+    error.status = 400;
+    return next(error);
+  }
   res.status(200).render("join-the-club", { errors: null });
 };
 
@@ -81,7 +93,7 @@ const createUser = async (req, res, next) => {
       if (isAdmin) {
         const member = await User.createMember(user.id);
         if (!member) {
-          throw Error("Failed in making the admin a member");
+          return next(new Error("Failed in making the admin a member!"));
         }
       }
       // Automatically log in the user after sign-up
