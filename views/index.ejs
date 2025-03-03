@@ -37,7 +37,14 @@
       <% if(messages) { messages.forEach(message => {%>
       <section class="w-full bg-zinc-750 p-10 my-5">
         <h3 class="font-bold mb-2"><%= message.title %></h3>
-        <p><%= message.message %></p>
+        <p class="mb-2"><%= message.message %></p>
+        <% if(currentUser.member) {%>
+        <p class="italic">
+          <%=message.first_name + " " +message.last_name%> <%= %>
+        </p>
+        <% } else { %>
+        <p class="italic">Anonymous</p>
+        <% } %>
       </section>
       <%})} %>
     </main>
